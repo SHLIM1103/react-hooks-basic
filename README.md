@@ -10,7 +10,10 @@
 
 - [x] useInput
 - [x] useTabs
-- [ ] useTitle
+
+### ✔️ useState
+
+- [x] useTitle
 - [ ] usePageLeave
 - [ ] useClick
 - [ ] useFadeIn
