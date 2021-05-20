@@ -16,8 +16,8 @@
 - [x] useTitle
 - [x] useClick (+ useRef)
 - [x] useHover
-- [ ] useConfirm
-- [ ] usePageLeave
+- [x] useConfirm
+- [x] usePageLeave
 - [ ] useFadeIn
 - [ ] useFullscreen
 - [ ] useNetwork

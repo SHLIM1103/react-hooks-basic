@@ -1,29 +1,22 @@
-import React, { useEffect, useRef } from "react"
+import React from "react"
 import ReactDOM from "react-dom"
 
-const useClick = (onClick) => {
-  const element = useRef().current
-  useEffect(() => {
-    if (element && typeof onClick !== "function") {
-      element.addEventListner("click", onClick)
-    }
-    return () => {
-      if (element && typeof onClick !== "function") {
-        element.removeEventListner("click", onClick)
-      }
-    }
-  }, [])
-  return element
+const usePreventLeave = () => {
+  const listner = (event) => {
+    event.preventDefault()
+    event.returnValue = ""
+  }
+  const enablePrevent = () => window.addEventListener("beforeunload", listner)
+  const disablePrevent = () => window.removeEventListener("beforeunload", listner)
+  return { enablePrevent, disablePrevent }
 }
 
 const App = () => {
-  const sayHello = () => {
-    console.log("say HELLO !")
-  }
-  const title = useClick(sayHello)
+  const { enablePrevent, disablePrevent } = usePreventLeave()
   return (
     <div className="App">
-      <h1 ref={title}>Hi</h1>
+      <button onClick={enablePrevent}>Protect</button>
+      <button onClick={disablePrevent}>Unprotect</button>
     </div>
   )
 }
