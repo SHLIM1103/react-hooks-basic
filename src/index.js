@@ -1,39 +1,17 @@
-import React, { useRef } from "react"
+import React from "react"
 import ReactDOM from "react-dom"
-
-const useFullscreen = (callback) => {
-  const element = useRef()
-  const triggerFullscreen = () => {
-    if (element.current) {
-      element.current.requestFullscreen()
-      if (callback && typeof callback === "function") {
-        callback(true)
-      }
-    }
-  }
-  const exitFullscr = () => {
-    if (document.fullscreenElement !== null) {
-      document.exitFullscreen()
-    }
-  }
-  return { element, triggerFullscreen, exitFullscr }
-}
+import useAxios from "./useAxios"
 
 const App = () => {
-  const callback = (isFull) => {
-    console.log(isFull ? "We are full" : "We are small")
-  }
-  const { element, triggerFullscreen, exitFullscr } = useFullscreen(callback)
+  const { loading, error, data, refetch } = useAxios({
+    url: "https://api.themoviedb.org/3/movie/550?api_key=23b3e070c63ad3b31ad25441c2bbc523"
+  })
+  console.log(`loading: ${loading},\nerror: ${error},\ndata: ${JSON.stringify(data)}`)
   return (
     <div className="App">
-      <button onClick={triggerFullscreen}>Make Fullscreen</button>
-      <div ref={element}>
-        <img
-          src="http://www.behindpress.com/news/photo/202005/7886_17019_552.jpg"
-          alt="handsome guy"
-        />
-        <button onClick={exitFullscr}>Exit Fullscreen</button>
-      </div>
+      <h1>{data && data.status}</h1>
+      <h2>{loading && "Loading..."}</h2>
+      <button onClick={refetch}>Refetch</button>
     </div>
   )
 }
