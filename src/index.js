@@ -1,22 +1,28 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef } from "react"
 import ReactDOM from "react-dom"
 
-const useTitle = (initTitle) => {
-  const [title, setTitle] = useState(initTitle)
-  const updateTitle = () => {
-    const htmlTitle = document.querySelector("title")
-    htmlTitle.innerText = title
-  }
-  useEffect(updateTitle, [title])
-  return setTitle
+const useClick = (onClick) => {
+  const element = useRef().current
+  useEffect(() => {
+    if (typeof onClick !== "function") {
+      element?.addEventListner("click", onClick)
+    }
+    return () => {
+      if (typeof onClick !== "function") {
+        element?.removeEventListner("click", onClick)
+      }
+    }
+  }, [])
 }
 
 const App = () => {
-  const titleUpdater = useTitle("Loading...")
-  setTimeout(() => titleUpdater("Home"), 2000)
+  const sayHello = () => {
+    console.log("say HELLO !")
+  }
+  const title = useClick(sayHello)
   return (
     <div className="App">
-      <div>Hi</div>
+      <h1 ref={title}>Hi</h1>
     </div>
   )
 }
