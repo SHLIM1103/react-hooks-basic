@@ -1,33 +1,39 @@
-import React, { useEffect, useState } from "react"
+import React, { useRef } from "react"
 import ReactDOM from "react-dom"
 
-const useNetwork = (onChange) => {
-  const [status, setStatus] = useState(navigator.onLine)
-  const handleChange = () => {
-    if (typeof onChange === "function") {
-      onChange(navigator.onLine)
+const useFullscreen = (callback) => {
+  const element = useRef()
+  const triggerFullscreen = () => {
+    if (element.current) {
+      element.current.requestFullscreen()
+      if (callback && typeof callback === "function") {
+        callback(true)
+      }
     }
-    setStatus(navigator.onLine)
   }
-  useEffect(() => {
-    window.addEventListener("online", handleChange)
-    window.addEventListener("offline", handleChange)
-    return () => {
-      window.removeEventListener("online", handleChange)
-      window.removeEventListener("offline", handleChange)
+  const exitFullscr = () => {
+    if (document.fullscreenElement !== null) {
+      document.exitFullscreen()
     }
-  }, [])
-  return status
+  }
+  return { element, triggerFullscreen, exitFullscr }
 }
 
 const App = () => {
-  const handleNetworkChange = (online) => {
-    console.log(online ? "We just went online" : "We are offline")
+  const callback = (isFull) => {
+    console.log(isFull ? "We are full" : "We are small")
   }
-  const onLine = useNetwork(handleNetworkChange)
+  const { element, triggerFullscreen, exitFullscr } = useFullscreen(callback)
   return (
     <div className="App">
-      <h1>{onLine ? "Online" : "Offline"}</h1>
+      <button onClick={triggerFullscreen}>Make Fullscreen</button>
+      <div ref={element}>
+        <img
+          src="http://www.behindpress.com/news/photo/202005/7886_17019_552.jpg"
+          alt="handsome guy"
+        />
+        <button onClick={exitFullscr}>Exit Fullscreen</button>
+      </div>
     </div>
   )
 }
