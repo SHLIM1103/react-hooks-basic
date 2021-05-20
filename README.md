@@ -17,11 +17,11 @@
 - [x] useClick (+ useRef)
 - [x] useHover
 - [x] useConfirm
-- [x] usePageLeave
-- [ ] useFadeIn
+- [x] usePreventLeave
+- [x] useBeforeLeave
+- [x] useFadeIn
+- [x] useNetwork
 - [ ] useFullscreen
-- [ ] useNetwork
 - [ ] useNotification
 - [ ] useScroll
-- [ ] usePreventLeave
 - [ ] useAxios
