@@ -1,13 +1,14 @@
 export const useClick = (onClick) => {
   const element = useRef().current
   useEffect(() => {
-    if (typeof onClick !== "function") {
-      element?.addEventListner("click", onClick)
+    if (element && typeof onClick !== "function") {
+      element.addEventListner("click", onClick)
     }
     return () => {
-      if (typeof onClick !== "function") {
-        element?.removeEventListner("click", onClick)
+      if (element && typeof onClick !== "function") {
+        element.removeEventListner("click", onClick)
       }
     }
   }, [])
+  return element
 }

@@ -2,7 +2,7 @@
 
 - React Hooks Nomad Coder 강의 내용 정리 (21.05.19 ~ 21.05.20)
 
-#
+<br />
 
 ## 📌 Contents
 
@@ -15,13 +15,13 @@
 
 - [x] useTitle
 - [x] useClick (+ useRef)
+- [x] useHover
+- [ ] useConfirm
 - [ ] usePageLeave
 - [ ] useFadeIn
 - [ ] useFullscreen
-- [ ] useHover
 - [ ] useNetwork
 - [ ] useNotification
 - [ ] useScroll
 - [ ] usePreventLeave
-- [ ] useConfirm
 - [ ] useAxios
